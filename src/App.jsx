@@ -7,7 +7,7 @@ function App() {
 
 
   return (
- 
+
     <div>
       <h1 className='text-3xl font-bold underline mb-2'>Redux Toolkit</h1>
       <CounterButton />
