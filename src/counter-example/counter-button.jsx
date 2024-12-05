@@ -4,7 +4,7 @@ import { handleIncreaseCountAction } from "../store/slices/counter";
 function CounterButton() {
     const dispatch = useDispatch();
 
-    function handleClick() {
+    function handleClick() {7
         dispatch(
             handleIncreaseCountAction({
                 id: 1,
