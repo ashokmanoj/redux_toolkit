@@ -39,10 +39,15 @@ function AddNewBlog() {
     }
 
     return (
-        <div>
-            <form onSubmit={handleTodoSubmit}>
-                <div>
-                    <label>Enter Blog Title</label>
+        <div style={styles.container}>
+            <form onSubmit={handleTodoSubmit} style={styles.form}>
+                <h2 style={styles.header}>
+                    {blog?.currentEditedBlogId ? "Edit Blog" : "Add New Blog"}
+                </h2>
+                <div style={styles.formGroup}>
+                    <label htmlFor="title" style={styles.label}>
+                        Blog Title
+                    </label>
                     <input
                         type="text"
                         name="title"
@@ -50,25 +55,91 @@ function AddNewBlog() {
                         id="title"
                         onChange={onChangeInput}
                         value={blog?.formData?.title}
+                        style={styles.input}
                     />
                 </div>
-                <div>
-                    <label>Enter Blog Description</label>
-                    <input
-                        type="text"
+                <div style={styles.formGroup}>
+                    <label htmlFor="description" style={styles.label}>
+                        Blog Description
+                    </label>
+                    <textarea
                         name="description"
                         placeholder="Enter Blog Description"
                         id="description"
                         onChange={onChangeInput}
                         value={blog?.formData?.description}
+                        style={styles.textarea}
                     />
                 </div>
-                <button type="submit">
+                <button type="submit" style={styles.button}>
                     {blog?.currentEditedBlogId ? "Edit Blog" : "Add New Blog"}
                 </button>
             </form>
         </div>
     );
 }
+
+const styles = {
+    container: {
+        width: "100%",
+        maxWidth: "500px",
+        margin: "0 auto",
+        padding: "20px",
+        borderRadius: "10px",
+        backgroundColor: "#fff",
+        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+    },
+    form: {
+        display: "flex",
+        flexDirection: "column",
+        gap: "15px",
+    },
+    header: {
+        fontSize: "1.8rem",
+        textAlign: "center",
+        marginBottom: "20px",
+        color: "#333",
+    },
+    formGroup: {
+        display: "flex",
+        flexDirection: "column",
+        gap: "5px",
+    },
+    label: {
+        fontSize: "1rem",
+        color: "#555",
+    },
+    input: {
+        padding: "10px",
+        border: "1px solid #ccc",
+        borderRadius: "5px",
+        fontSize: "1rem",
+        outline: "none",
+        transition: "border-color 0.3s",
+    },
+    textarea: {
+        padding: "10px",
+        border: "1px solid #ccc",
+        borderRadius: "5px",
+        fontSize: "1rem",
+        outline: "none",
+        minHeight: "80px",
+        resize: "vertical",
+        transition: "border-color 0.3s",
+    },
+    button: {
+        padding: "10px 15px",
+        border: "none",
+        borderRadius: "5px",
+        fontSize: "1rem",
+        color: "#fff",
+        backgroundColor: "#6200ea",
+        cursor: "pointer",
+        transition: "background-color 0.3s",
+    },
+    buttonHover: {
+        backgroundColor: "#5a00d2",
+    },
+};
 
 export default AddNewBlog;

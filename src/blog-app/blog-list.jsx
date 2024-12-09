@@ -18,10 +18,9 @@ function BlogList() {
                 blogList: JSON.parse(localStorage.getItem("blogList")) || [],
             })
         );
-    }, []);
+    }, [dispatch]);
 
     function onDeleteBlog(getCurrentBlogId) {
-        console.log(getCurrentBlogId);
         dispatch(
             handleDeleteBlog({
                 currentBlogId: getCurrentBlogId,
@@ -45,28 +44,91 @@ function BlogList() {
     }
 
     return (
-        <ul>
+        <div style={styles.container}>
             {blogList?.length > 0 ? (
                 blogList.map((singleBlogItem) => (
-                    <div
-                        style={{ border: "1px solid red", padding: "10px" }}
-                        key={singleBlogItem?.id}
-                    >
-                        <h3>{singleBlogItem?.title}</h3>
-                        <h3>{singleBlogItem?.description}</h3>
-                        <button onClick={() => onEditBlog(singleBlogItem)}>
-                            Edit Blog
-                        </button>
-                        <button onClick={() => onDeleteBlog(singleBlogItem.id)}>
-                            Delete Blog
-                        </button>
+                    <div style={styles.card} key={singleBlogItem?.id}>
+                        <h3 style={styles.title}>{singleBlogItem?.title}</h3>
+                        <p style={styles.description}>
+                            {singleBlogItem?.description}
+                        </p>
+                        <div style={styles.buttonContainer}>
+                            <button
+                                style={styles.editButton}
+                                onClick={() => onEditBlog(singleBlogItem)}
+                            >
+                                Edit Blog
+                            </button>
+                            <button
+                                style={styles.deleteButton}
+                                onClick={() => onDeleteBlog(singleBlogItem.id)}
+                            >
+                                Delete Blog
+                            </button>
+                        </div>
                     </div>
                 ))
             ) : (
-                <h1>No blog added ! Please add one</h1>
+                <h1 style={styles.noBlogsMessage}>
+                    No blogs added! Please add one.
+                </h1>
             )}
-        </ul>
+        </div>
     );
 }
+
+const styles = {
+    container: {
+        display: "flex",
+        flexWrap: "wrap",
+        gap: "20px",
+        justifyContent: "center",
+        padding: "20px",
+    },
+    card: {
+        width: "300px",
+        padding: "15px",
+        borderRadius: "10px",
+        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+        backgroundColor: "#fff",
+        textAlign: "center",
+    },
+    title: {
+        fontSize: "1.5rem",
+        margin: "10px 0",
+        color: "#333",
+    },
+    description: {
+        fontSize: "1rem",
+        color: "#555",
+        marginBottom: "20px",
+    },
+    buttonContainer: {
+        display: "flex",
+        justifyContent: "space-between",
+        marginTop: "10px",
+    },
+    editButton: {
+        backgroundColor: "#6200ea",
+        color: "#fff",
+        border: "none",
+        borderRadius: "5px",
+        padding: "8px 15px",
+        cursor: "pointer",
+    },
+    deleteButton: {
+        backgroundColor: "#e53935",
+        color: "#fff",
+        border: "none",
+        borderRadius: "5px",
+        padding: "8px 15px",
+        cursor: "pointer",
+    },
+    noBlogsMessage: {
+        fontSize: "1.5rem",
+        color: "#666",
+        textAlign: "center",
+    },
+};
 
 export default BlogList;
