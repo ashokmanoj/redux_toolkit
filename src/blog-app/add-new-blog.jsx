@@ -1,4 +1,7 @@
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {
     handleAddTodo,
     handleEditBlog,
@@ -21,15 +24,44 @@ function AddNewBlog() {
 
     function handleTodoSubmit(event) {
         event.preventDefault();
-        if (currentEditedBlogId !== null) dispatch(handleEditBlog());
-        else dispatch(handleAddTodo());
 
-        if (currentEditedBlogId !== null)
+        if (currentEditedBlogId !== null) {
+            dispatch(handleEditBlog());
+            toast.success("Blog updated successfully!", {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                type: "success",
+
+            });
+        } else {
+            dispatch(handleAddTodo());
+            toast.success("New blog added successfully!", {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                type: "success",
+            });
+        }
+
+        // Reset the form
+        if (currentEditedBlogId !== null) {
             dispatch(
                 setCurrentEditedBlogId({
                     currentBlogId: null,
                 })
             );
+        }
         dispatch(
             handleInputChange({
                 description: "",
@@ -75,6 +107,7 @@ function AddNewBlog() {
                     {blog?.currentEditedBlogId ? "Edit Blog" : "Add New Blog"}
                 </button>
             </form>
+            <ToastContainer />
         </div>
     );
 }
